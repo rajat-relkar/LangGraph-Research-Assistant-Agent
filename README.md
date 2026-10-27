@@ -13,7 +13,7 @@
 
 ## What Is This?
 
-This project is a LangGraph-powered research assistant inspired by analyst interview workflows. Given a research topic, the system generates a panel of analyst personas, gives the user a chance to approve or revise them, sends each analyst through an interview loop, gathers web context with Tavily, and combines the resulting memos into a final Markdown report.
+This project is a LangGraph-powered research assistant, built from scratch and inspired by analyst interview workflows. Given a research topic, the system generates a panel of analyst personas, gives the user a chance to approve or revise them, sends each analyst through an interview loop, gathers web context with Tavily, and combines the resulting memos into a final Markdown report.
 
 The project demonstrates several practical agent patterns:
 
@@ -23,6 +23,8 @@ The project demonstrates several practical agent patterns:
 - A reusable interview subgraph embedded as a node in the main graph.
 - Search-grounded question answering with Tavily.
 - Map-reduce style report writing across analyst sections.
+- External tool and API integration: Groq for the LLM and Tavily for live web search.
+- Graph-based backend architecture: typed state, nodes, and edges that run as a local LangGraph server.
 - LangGraph graph configuration for local development and Studio inspection.
 
 | File | Responsibility |
@@ -114,6 +116,13 @@ You can also see the live graph, step by step, in LangGraph Studio (see [Getting
 - Analyst sections are gathered into a consolidated report body.
 - Introduction, body, and conclusion are generated as separate, parallel graph nodes.
 - Final output is assembled into a Markdown report with preserved citations and a sources list.
+
+### Final Report Contents
+
+- **Research topic summary:** a generated introduction that frames the topic and previews every section.
+- **Interview-based research sections:** one section per analyst perspective, written from that analyst's interview and sources.
+- **Source-grounded insights:** a consolidated body (`## Insights`) built from the retrieved web context, with citations.
+- **Conclusion and sources:** a closing recap followed by the full list of cited sources.
 
 ---
 
@@ -328,6 +337,9 @@ The full graph returns a `final_report` field containing the generated Markdown 
 | Data models | Pydantic | Structured LLM output and validation |
 | Configuration | python-dotenv | Loads local environment variables from `.env` |
 | Package management | uv | Dependency resolution and command execution |
+| Graph inspection | LangGraph Studio | Visualize graph runs, state, and human-feedback interrupts |
+| Editor | VS Code | Development environment |
+| Version control | GitHub | Source hosting |
 
 ---
 
